@@ -1,0 +1,59 @@
+<div class="container">
+    <canvas id="fabricCanavs"></canvas>
+    <div class="undoredo">
+        <i matTooltip="Undo" (click)="onUndo()" class="fa-solid  fa-rotate-left"></i>
+        <i matTooltip="Redo" (click)="onRedo()" class="fa-solid fa-rotate-right"></i>
+    </div>
+    <div class="toolBar">
+        <button matTooltip="PanTool" (click)="onToolChange('panzoom')" class="btn">
+            <i class="fa-solid fa-hand"></i>
+        </button>
+        <app-menu *ngFor="let tool of toolsList" [icon]="tool.icon" [activeTool]="activeTool(currentTool,tool.tools)">
+            <div class="toolType">
+                <div class="title">Select {{tool.type}}</div>
+                <div class="tools">
+                    <div class="list" *ngFor="let tool of tool.tools" (click)="onToolChange(tool.toolCode)"
+                        [class.activeTool]="currentTool ==tool.toolCode">
+                        <i [ngClass]="tool.icon"></i> <span>{{ tool.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </app-menu>
+        <button [class.active]="currentTool =='eraser'" matTooltip="Eraser" (click)="onToolChange('eraser')"
+            class="btn">
+            <i class="fa-solid fa-eraser"></i>
+        </button>
+        <button [class.active]="currentTool =='text'" matTooltip="Text" (click)="onToolChange('text')" class="btn">
+            <i class="fa-solid fa-font"></i>
+        </button>
+
+        <input #imageInput class="hidden" type="file" accept="image/*" (change)="handleFileInput($event)">
+        <button matTooltip="Add Image" (click)="imageInput.click()" class="btn">
+            <i class="fa-solid fa-image"></i>
+        </button>
+        <color-menu [activeColor]="selectedColor">
+            <div class="colors">
+                <button (click)="updateToolColor(color)" class="colorBtn" [ngStyle]="{ backgroundColor  :color}"
+                    *ngFor="let color of colors"></button>
+            </div>
+        </color-menu>
+    </div>
+
+    <div id="buttonContainer">
+        <div class="textProp">
+            <color-menu [activeColor]="this.evntListner.activeObject?.fill">
+                <div class="colors">
+                    <button (click)="updateTextColor(color)" class="colorBtn" [ngStyle]="{ backgroundColor  :color}"
+                        *ngFor="let color of colors"></button>
+                </div>
+            </color-menu>
+            <select #fontFamily (change)="changeFontFamily(fontFamily.value)"
+                [value]="this.evntListner.activeObject?.fontFamily">
+                <option *ngFor="let ff of fontFamilies">{{ff}}</option>
+            </select>
+            <button class="fbtn" (click)="fontSize(1)"> A⁺</button>
+            <button class="fbtn" (click)="fontSize(-1)"> A⁻</button>
+        </div>
+    </div>
+  
+</div>
