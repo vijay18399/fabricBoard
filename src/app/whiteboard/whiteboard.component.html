@@ -1,24 +1,27 @@
 <div class="container">
     <canvas id="fabricCanavs"></canvas>
-    <div class="undoredo">
-        <i matTooltip="Undo" (click)="onUndo()" class="fa-solid  fa-rotate-left"></i>
-        <i matTooltip="Redo" (click)="onRedo()" class="fa-solid fa-rotate-right"></i>
-    </div>
-    <div class="toolBar">
-        <button matTooltip="PanTool" (click)="onToolChange('panzoom')" class="btn">
+  
+    <mat-card class="toolBar">
+        <!-- <button   [class.active]="currentTool =='panzoom'" matTooltip="PanTool" (click)="onToolChange('panzoom')" class="btn">
             <i class="fa-solid fa-hand"></i>
-        </button>
-        <app-menu *ngFor="let tool of toolsList" [icon]="tool.icon" [activeTool]="activeTool(currentTool,tool.tools)">
-            <div class="toolType">
-                <div class="title">Select {{tool.type}}</div>
+        </button> -->
+        <!-- <button  [class.active]="currentTool =='perfect'" matTooltip="Hand Draw" (click)="onToolChange('perfect')"
+        class="btn">
+        <i class="fa-solid fa-hand-point-up"></i>
+       </button> -->
+        <button class="btn" [class.active]="activeTool(currentTool,tool.tools)" [matMenuTriggerFor]="toolMenu"
+            *ngFor="let tool of toolsList">
+            <i [ngClass]="tool.icon" class="fa-solid "></i>
+            <mat-menu class="menu" overlayPanelClass="panelClass" #toolMenu="matMenu">
                 <div class="tools">
-                    <div class="list" *ngFor="let tool of tool.tools" (click)="onToolChange(tool.toolCode)"
-                        [class.activeTool]="currentTool ==tool.toolCode">
-                        <i [ngClass]="tool.icon"></i> <span>{{ tool.name}}</span>
-                    </div>
+                    <button *ngFor="let tool of tool.tools" (click)="onToolChange(tool.toolCode)"
+                        [matTooltip]="tool.name" [class.activeTool]="currentTool ==tool.toolCode">
+                        <i [ngClass]="tool.icon"></i>
+                    </button>
                 </div>
-            </div>
-        </app-menu>
+            </mat-menu>
+        </button>
+
         <button [class.active]="currentTool =='eraser'" matTooltip="Eraser" (click)="onToolChange('eraser')"
             class="btn">
             <i class="fa-solid fa-eraser"></i>
@@ -31,29 +34,50 @@
         <button matTooltip="Add Image" (click)="imageInput.click()" class="btn">
             <i class="fa-solid fa-image"></i>
         </button>
-        <color-menu [activeColor]="selectedColor">
+        <button id="colorBtn" [ngStyle]="{ backgroundColor  :selectedColor}" [matMenuTriggerFor]="colorMenu"
+            aria-label="Example icon-button with a menu">
+
+        </button>
+        <mat-menu class="menu" #colorMenu="matMenu">
             <div class="colors">
-                <button (click)="updateToolColor(color)" class="colorBtn" [ngStyle]="{ backgroundColor  :color}"
+                <button (click)="updateToolColor(color)" id="colorBtn" [ngStyle]="{ backgroundColor  :color}"
                     *ngFor="let color of colors"></button>
             </div>
-        </color-menu>
-    </div>
+        </mat-menu>
 
-    <div id="buttonContainer">
+    </mat-card>
+
+    <mat-card id="buttonContainer">
         <div class="textProp">
-            <color-menu [activeColor]="this.evntListner.activeObject?.fill">
+            <button id="colorBtn" [ngStyle]="{ backgroundColor  :this.evntListner.activeObject?.fill}"
+                [matMenuTriggerFor]="textColor" aria-label="Example icon-button with a menu">
+            </button>
+            <mat-menu class="menu" #textColor="matMenu">
                 <div class="colors">
-                    <button (click)="updateTextColor(color)" class="colorBtn" [ngStyle]="{ backgroundColor  :color}"
-                        *ngFor="let color of colors"></button>
+                        <button (click)="updateTextColor(color)" id="colorBtn" [ngStyle]="{ backgroundColor  :color}"
+                            *ngFor="let color of colors"></button>
                 </div>
-            </color-menu>
-            <select #fontFamily (change)="changeFontFamily(fontFamily.value)"
+            </mat-menu>
+
+     
+             <select #fontFamily (change)="changeFontFamily(fontFamily.value)"
                 [value]="this.evntListner.activeObject?.fontFamily">
                 <option *ngFor="let ff of fontFamilies">{{ff}}</option>
-            </select>
-            <button class="fbtn" (click)="fontSize(1)"> A⁺</button>
-            <button class="fbtn" (click)="fontSize(-1)"> A⁻</button>
+            </select> 
+            <select #fontSize (change)="changeFontSize(fontSize.value)"
+            [value]="this.evntListner.activeObject?.fontSize">
+            <option *ngFor="let fs of fontSizes">{{fs}}</option>
+        </select> 
+            
         </div>
-    </div>
-  
+    </mat-card>
+    <mat-card class="zoomBar">
+        <button  matTooltip="Zoom in" (click)="onZoom(-10)"
+        class="fbtn">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+    <button  matTooltip="Zoom out" (click)="onZoom(10)" class="fbtn">
+        <i class="fa-solid fa-minus"></i>
+    </button>
+    </mat-card>
 </div>

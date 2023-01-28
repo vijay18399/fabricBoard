@@ -5,6 +5,7 @@ import ClickEraser from '../fabric/brushes/eraser';
 import Laser from '../fabric/brushes/laser';
 import PaintBucket from '../fabric/brushes/paintBucket';
 import PanZoom from '../fabric/brushes/pan';
+import perfectFreeHand from '../fabric/brushes/perfectHand';
 
 import Pointer from '../fabric/brushes/pointer';
 import shapeCreator from '../fabric/brushes/shape.creator';
@@ -30,6 +31,9 @@ export class ToolService {
     this._canvas.isDrawingMode = true;
     this._canvas.off('mouse:wheeel');
    switch (tool) {
+    case 'perfect':
+      this.tool= new perfectFreeHand(this._canvas);
+      break;
     case 'pencil':
       var cursorUrl =  'assets/cursors/pencil.cur';
       this._canvas.freeDrawingCursor =  `url(" ${cursorUrl} "), auto`;

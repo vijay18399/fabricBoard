@@ -1,1 +1,10 @@
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+<!-- <ng-container #pageContainer></ng-container> -->
+<div class="boardContainer">
+    <app-whiteboard   *ngFor="let x of list"></app-whiteboard>
+    <!-- <div class="pageController">
+        <button (click)="createPage()">+</button>
+        <button  (click)="prev()">Prev</button>
+        <button  (click)="next()">Next</button>
+    </div> -->
+</div>

@@ -7,6 +7,8 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [],
   imports: [
@@ -15,14 +17,18 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSliderModule,
     MatIconModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonModule,
+    MatSelectModule
   ],
   exports: [
     MatCardModule,
     MatSliderModule,
     MatIconModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatButtonModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }

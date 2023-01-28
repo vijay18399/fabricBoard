@@ -15,12 +15,14 @@ import { EventListenerService } from '../services/eventListener.service';
   styleUrls: ['./whiteboard.component.scss']
 })
 export class WhiteboardComponent {
+  
    _canvas!: fabric.Canvas;
    colors: string[] = ['#0E0E0E', '#FE0000', '#1878F3', '#EFC733', '#CB503E', '#8C1092','#06CF9C','#33648D','#6A000C'];
    fontFamilies:string[]=['Tahoma','sans-serif','Times New Roman','Courier New','Arial','Helvetica','Lucida Console']
    selectedColor: string = '#0E0E0E';
    selectedStroke: number = 5;
-   currentTool: string = 'laser';
+   fontSizes=[10,20,30,40,50,60,80];
+   currentTool: string = 'selector';
    activeObject:any = null;
   toolsList:any;
   fontFamily:any='Tahoma';
@@ -38,19 +40,27 @@ export class WhiteboardComponent {
       this._canvas.add(new fabric.IText("Hello",{
         left:100,
         top:100,
+        fontSize:20,
         stroke: this.selectedColor
       }))
       this.toolService.initCanvas(this._canvas);
       this.undoService.initCanvas(this._canvas);
-      this.toolService.updateTool('laser');
+      this.toolService.updateTool('selector');
       this.evntListner.initCanvas(this._canvas);
-      setCustoms('#F57C00',this._canvas);
+      setCustoms('#FF5733 ',this._canvas);
   }
   changeFontFamily(ff:string){
     this.evntListner.changeFont(ff);
   }
-  fontSize(num:number){
-    this.evntListner.changeFontSize(num);
+  changeFontSize(fs:string){
+    this.evntListner.changeFontSize(fs);
+  }
+  onZoom(num:number){
+    let zoom = this._canvas.getZoom();
+    zoom *= 0.999 ** num;
+    if (zoom > 4) zoom = 4;
+    if (zoom < 0.01) zoom = 0.01;
+    this._canvas.setZoom(zoom);
   }
   updateTextColor(color:string){
     this.evntListner.updateTextColor(color);
@@ -79,7 +89,9 @@ export class WhiteboardComponent {
    activeTool(active:any,toolsList:any){
     return(toolsList.find((tool:any) => tool.toolCode === active));  
    }
-
+   setColor(color:string){
+    return (this.currentTool == color? 'primary' :'default')
+   }
    handleFileInput(event: any) {
     let files = event.target.files;
     const file = files.item(0);

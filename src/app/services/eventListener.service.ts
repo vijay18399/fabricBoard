@@ -10,9 +10,9 @@ export class EventListenerService {
     });
     this.handleSelection(this.activeObject)
   }
-  changeFontSize(num: number) {
+  changeFontSize(num: string) {
     this.activeObject.set({
-      fontSize : this.activeObject.fontSize + num
+      fontSize : num
     });
     this.handleSelection(this.activeObject)
   }

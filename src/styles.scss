@@ -8,7 +8,19 @@ body {
   }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
+.hidden{
+  display: none;
+}
+ .menu {
+  left: 54px !important;
+  position: absolute;
+}
+::ng-deep .mat-menu-panel {
+  padding: 0 10px!important;
+  width: 100%!important;
+}
+.panelClass{
+  width: 50px;
+}
 
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");

@@ -4,6 +4,11 @@ export const toolsConfig =
         type: 'brush',
         handler:'tool',
         tools: [
+            {   name :'Hand Draw',
+            toolCode: 'perfect',
+            icon: 'fa-solid fa-hand-point-up',
+            display: true
+            },
             {   name :'Pencil',
                 toolCode: 'pencil',
                 icon: 'fa-solid fa-pencil',
@@ -32,17 +37,21 @@ export const toolsConfig =
                 icon: 'fa-solid  fa-wand-magic-sparkles',
                 display: true
             },
-            { name :'Selector',
+            { name :'Selector Mode',
                 toolCode: 'selector',
                 icon: 'fa-solid  fa-arrow-pointer',
                 display: true
             },
-            { name :'Pointer',
+            { name :'Pointer Mode',
                 toolCode: 'pointer',
                 icon: 'fa-solid fa-hand-point-up',
                 display: true
-            }
-            
+            },
+            { name :'Pan Mode',
+            toolCode: 'panzoom',
+            icon: 'fa-solid fa-hand',
+            display: true
+        }
         ],
         icon: 'fa-solid  fa-arrow-pointer',
         lastUsed: null,

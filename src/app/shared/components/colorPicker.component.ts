@@ -24,7 +24,7 @@ import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/
  .menu.open {
     display: block;
     position: absolute;
-    top: 55px;
+    top: 300px;
     left: 75px;
     padding: 12px;
     background-color: white;
